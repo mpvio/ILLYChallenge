@@ -7,26 +7,14 @@ open System
 // get tables
 let tables = addTables [] ()
 
-//for t in tables do
-//    printfn "%s" (t.ToString())
-
 // get selected columns
 let (selectClause, updatedTables) = createSelect tables
 
 // get joins
 let joins = getJoins updatedTables ()
 
-//for j in joins do
-//    printfn "%s" (j.ToString())
-
 // get where clauses
 let wheres, operators = getWheres updatedTables ()
-
-//for w in wheres do
-//    printfn "%s" (w.ToString())
-
-//for o in operators do
-//    printfn "Logical operator: %s" o
 
 // put everything together
 let selectPart = 
@@ -62,3 +50,19 @@ let fullSql =
     |> String.concat " "
 
 printfn "\nGenerated SQL Query:\n%s" fullSql
+
+// string outputs
+//for t in tables do
+//    printfn "%s" (t.ToString())
+
+//for ut in updatedTables do
+//    printfn "Updated %s" (ut.ToString())
+
+//for j in joins do
+//    printfn "%s" (j.ToString())
+
+//for w in wheres do
+//    printfn "%s" (w.ToString())
+
+//for o in operators do
+//    printfn "Logical operator: %s" o
