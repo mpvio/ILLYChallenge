@@ -12,7 +12,6 @@ let rec private getTableName (): string =
         printf "Please enter a table name"
         getTableName ()
     else
-    // let alias = promptUser (sprintf "Enter alias for table '%s' (leave blank to skip): " tableName)
     tableName
 
 // get column names

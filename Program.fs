@@ -37,7 +37,7 @@ let wherePart =
             |> List.map (fun w -> w.ToString())
         // combine with logical operators
         let combinedWhere = 
-            List.zip whereStrings (operators @ [""]) // add empty operator for last clause
+            List.zip whereStrings (operators @ [""]) // add empty operator to enable zipping for all where clauses
             |> List.map (fun (w, op) -> if op <> "" then sprintf "%s %s" w op else w)
             |> String.concat " "
         sprintf "WHERE %s" combinedWhere

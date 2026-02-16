@@ -23,7 +23,7 @@ type Table = {
     Columns: Column list // (column name, optional alias)
 }
 with
-    // get the name with which to reference the table in SQL (alias if provided, otherwise name)
+    // get the name with which to reference the table in join queries (alias if provided, otherwise name)
     member this.TableRef() =
         match this.Alias with
         | Some a when not (String.IsNullOrWhiteSpace a) -> a
@@ -36,15 +36,13 @@ with
         | _ -> this.Name
 
     // how columns should be displayed in the SELECT clause (name AS alias if alias provided, otherwise just name)
+    // (only used for toString)
     member this.ColumnsDisplay() =
         match this.Columns with
         | [] -> ""
         | cols ->
             cols
-            |> List.map (fun c ->
-                match c.Alias with
-                | Some a when not (String.IsNullOrWhiteSpace a) -> sprintf "%s AS %s" c.Name a
-                | _ -> c.Name)
+            |> List.map (fun c -> c.ColumnDisplay())
             |> String.concat ", "
 
     override this.ToString() =
