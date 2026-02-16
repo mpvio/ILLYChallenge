@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="InputParser.fs" />
+    <Compile Include="TableModel.fs" />
+    <Compile Include="JoinModel.fs" />
+    <Compile Include="TableController.fs" />
+    <Compile Include="JoinController.fs" />
+    <Compile Include="JoinDefinitions.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <Compile Include="HelperFunctions.fs" />
+	  <Compile Include="TableModel.fs" />
+	  <Compile Include="JoinModel.fs" />
+	  <Compile Include="WhereModel.fs" />
+	  <Compile Include="TableController.fs" />
+	  <Compile Include="JoinController.fs" />
+	  <Compile Include="WhereController.fs" />
+	  <Compile Include="SelectController.fs" />
+	  <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="MyProject.fsproj" />
+  </ItemGroup>
+
+</Project>
