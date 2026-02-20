@@ -5,7 +5,7 @@ open SelectController
 open System
 
 // get tables
-let tables = addTables [] ()
+let tables = createTables [] ()
 
 // get selected columns
 let (selectClause, updatedTables) = createSelect tables

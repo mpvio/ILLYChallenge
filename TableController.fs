@@ -6,33 +6,29 @@ open System
 
 // TABLE CREATION FUNCTIONS
 // get table name and optional alias
-let rec private getTableName (): string =
+let rec private getTableNameFromUser (): string =
     let tableName = promptUser "Enter table name: "
     if String.IsNullOrWhiteSpace(tableName) then
         printf "Please enter a table name"
-        getTableName ()
+        getTableNameFromUser ()
     else
     tableName
 
 // get column names
 // for each column ask for an optional alias
-let rec private getColumns (tableName: string) (columns: string list): string list =
+let rec private createColumns (tableName: string) (columns: string list): string list =
     let columnName = promptUser (sprintf "Enter column name from table '%s' (leave blank to skip): " tableName)
     if String.IsNullOrWhiteSpace(columnName) then
         List.rev columns // get columns in the order they were entered
     else
-        getColumns tableName (tableName + "." + columnName :: columns)
+        createColumns tableName (tableName + "." + columnName :: columns)
 
 // DISPLAY FUNCTIONS
 // display columns in a numbered list
 let displayColumns (cols: Column list) =
     cols
     |> List.iteri (fun i c ->
-        let aliasText =
-            match c.Alias with
-            | Some a when not (String.IsNullOrWhiteSpace a) -> sprintf " AS %s" a
-            | _ -> ""
-        printfn "%d) %s%s" (i + 1) c.Name aliasText)
+        printfn "%d) %s" (i + 1) (c.ColumnDisplay()))
 
 // display tables in a numbered list
 let displayTables (tables: Table list) =
@@ -90,11 +86,11 @@ let chooseColumns (table: Table) (promptText: string): Table * Column list =
     (finalTable, columns)
 
 // MAIN FUNCTION TO GET TABLE
-let getTable () =
-    let tableName = getTableName ()
+let createTable () =
+    let tableName = getTableNameFromUser ()
 
     // get columns of table and their optional aliases
-    let columns = getColumns tableName []
+    let columns = createColumns tableName []
 
     // build table object
     let table = {
@@ -113,10 +109,10 @@ let getTable () =
     table
 
 // creating multiple tables
-let rec addTables (acc: Table list) () : Table list =
+let rec createTables (acc: Table list) () : Table list =
     let okay = yesNo "Do you want to add a table?"
     if okay then
-        let table = getTable ()
-        addTables (table :: acc) ()
+        let table = createTable ()
+        createTables (table :: acc) ()
     else
         List.rev acc
